@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Reponse.Response retour = gson.fromJson(downloadedContent,Reponse.Response.class);
         if(retour.getResponse().equals("Ok")){
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            Intent intent = new Intent(getApplicationContext(),ChannelActivity.class);
+            Intent intent = new Intent(getApplicationContext(),ChannelListActivity.class);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("token",retour.getAccesstoken());
             editor.commit();

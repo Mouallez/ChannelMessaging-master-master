@@ -2,14 +2,10 @@ package william.servian.channelmessaging;
 
 import java.util.ArrayList;
 
-/**package william.servian.channelmessaging;
-
- import java.util.ArrayList;
-
- /**
- * Created by sacquind on 29/01/2018.
+/**
+ * Created by sacquind on 05/02/2018.
  */
-class ChannelResponse {
+public class ChannelReponse {
     public ArrayList<Channel> channels;
 
     public ArrayList<Channel> getChannels() {

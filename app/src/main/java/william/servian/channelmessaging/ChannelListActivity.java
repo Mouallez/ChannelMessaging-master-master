@@ -1,10 +1,12 @@
 package william.servian.channelmessaging;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,18 +48,24 @@ public class ChannelListActivity extends AppCompatActivity implements View.OnCli
     public void onDownloadComplete(String downloadContent) {
 
         Gson gson = new Gson();
-        ChannelResponse obj = gson.fromJson(downloadContent, ChannelResponse.class);
+        ChannelReponse obj = gson.fromJson(downloadContent, ChannelReponse.class);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_2);
-        for (Channel chan:obj.getChannels()
-                ) {
-            arrayAdapter.add("Channel :"+chan.getName().toString());
-            arrayAdapter2.add("Nombre d'utilisateurs connectés: "+chan.getConnectedusers());
+
+        for (Channel chan:obj.getChannels()){
+            arrayAdapter.add(chan.getName().toString());
         }
         listView.setAdapter(arrayAdapter);
-        listView.setAdapter(arrayAdapter2);
+
         arrayAdapter.notifyDataSetChanged();
-        arrayAdapter2.notifyDataSetChanged();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ChannelListActivity.this, ChannelActivity.class);
+                intent.putExtra("channelId",String.valueOf(id+1));
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
